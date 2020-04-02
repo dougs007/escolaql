@@ -1,0 +1,86 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-01-01 13:00:00`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+type Query {
+    users: [User!]! @paginate(defaultCount: 10)
+    user(id: ID @eq): User @find
+
+    alunos: [Aluno!]! @paginate(defaultCount: 10)
+    aluno(id: ID @eq): Aluno @find
+
+    materias: [Materia!]! @paginate(defaultCount: 10)
+    materia(id: ID @eq): Materia @find
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+type Aluno {
+    id: ID!
+    tx_nome: String!
+    nu_idade: Int!
+    tx_email: String!
+    nu_matricula: Int!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+type Materia {
+    id: ID!
+    tx_nome: String!
+    tx_descricao: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
+}
+
+## FINALIZAR ESSA PARTE AQUI.
+#type AlunosMaterias {
+#    alunos_id: String!
+#    materias_id: String!
+#}
+#
+#type Query {
+#    alunos: [Alunos!]! @paginate(defaultCount: 10)
+#    aluno(id: ID! @eq): Alunos @find
+#
+#    materias: [Materias!]! @paginate(defaultCount: 10)
+#    materia(id: ID! @eq): Materias @find
+#
+#    materias: [Materias!]! @paginate(defaultCount: 10)
+#    materia(id: ID! @eq): Materias @find
+#}
+
+
+
+type Mutation {
+    createAluno(
+        id:           ID
+        tx_nome:      String! @rules(apply: ["required"])
+        nu_idade:     Int!    @rules(apply: ["required"])
+        tx_email:     String! @rules(apply: ["required", "unique:alunos,tx_email"])
+        nu_matricula: Int!    @rules(apply: ["required"])
+    ): Aluno @create (model: "App\\Models\\Aluno")
+
+    updateAluno(
+        id:           ID!
+        tx_nome:      String! @rules(apply: ["required"])
+        nu_idade:     Int!    @rules(apply: ["required"])
+        tx_email:     String! @rules(apply: ["required"])
+        nu_matricula: Int!    @rules(apply: ["required"])
+    ): Aluno @update
+
+    deleteAluno(
+        id: ID! @rules(apply: ["required"])
+    ): Aluno @delete (model: "App\\Models\\Aluno")
+}
