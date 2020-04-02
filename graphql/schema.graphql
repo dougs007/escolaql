@@ -49,23 +49,10 @@ type Materia {
 #    alunos_id: String!
 #    materias_id: String!
 #}
-#
-#type Query {
-#    alunos: [Alunos!]! @paginate(defaultCount: 10)
-#    aluno(id: ID! @eq): Alunos @find
-#
-#    materias: [Materias!]! @paginate(defaultCount: 10)
-#    materia(id: ID! @eq): Materias @find
-#
-#    materias: [Materias!]! @paginate(defaultCount: 10)
-#    materia(id: ID! @eq): Materias @find
-#}
-
 
 
 type Mutation {
     createAluno(
-        id:           ID
         tx_nome:      String! @rules(apply: ["required"])
         nu_idade:     Int!    @rules(apply: ["required"])
         tx_email:     String! @rules(apply: ["required", "unique:alunos,tx_email"])
@@ -77,10 +64,25 @@ type Mutation {
         tx_nome:      String! @rules(apply: ["required"])
         nu_idade:     Int!    @rules(apply: ["required"])
         tx_email:     String! @rules(apply: ["required"])
-        nu_matricula: Int!    @rules(apply: ["required"])
+#        nu_matricula: Int!    @rules(apply: ["required"]) A idea é que não atualize matricula.
     ): Aluno @update
 
     deleteAluno(
         id: ID! @rules(apply: ["required"])
     ): Aluno @delete (model: "App\\Models\\Aluno")
+
+    createMateria(
+        tx_nome:      String! @rules(apply: ["required"])
+        tx_descricao: String! @rules(apply: ["required"])
+    ): Materia @create (model: "App\\Models\\Materia")
+
+    updateMateria(
+        id:           ID!
+        tx_nome:      String! @rules(apply: ["required"])
+        tx_descricao: String! @rules(apply: ["required"])
+    ): Materia @update
+
+    deleteMateria(
+        id: ID! @rules(apply: ["required"])
+    ): Materia @delete (model: "App\\Models\\Materia")
 }
