@@ -15,7 +15,7 @@
 <p align="center">
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#gql-graphql">GraphQL</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#graphql-queries">GraphQL</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-contribuir">Como contribuir</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#memo-licença">Licença</a>
 </p>
@@ -44,7 +44,7 @@ O EscolaQL é uma api simples de escola, contendo as entidades: ```aluno```, ```
 
 Depois que o merge da sua pull request for feito, você pode deletar a sua branch.
 
-## :gql: Graphql Queries
+##  Graphql Queries
 
 @fix adicionar link aqui para ```docs/graphql.md```.
 
