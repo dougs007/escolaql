@@ -16,4 +16,8 @@ class Materia extends Model
         'tx_nome', 'tx_descricao'
     ];
 
+    public function alunoMateria()
+    {
+        return $this->hasMany(\App\Models\AlunoMateria::class, 'alunos_materias_id');
+    }
 }

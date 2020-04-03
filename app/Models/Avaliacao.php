@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\{Model, SoftDeletes};
+use Illuminate\Database\Eloquent\{Model, Relations\BelongsTo, SoftDeletes};
 
 class Avaliacao extends Model
 {
@@ -17,4 +17,9 @@ class Avaliacao extends Model
     protected $fillable = [
         'nu_nota', 'alunos_materias_id'
     ];
+
+    public function alunoMateria(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\AlunoMateria::class, 'alunos_materias_id');
+    }
 }

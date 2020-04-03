@@ -6,13 +6,18 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
+    user(id: ID! @eq): User @find
 
     alunos: [Aluno!]! @paginate(defaultCount: 10)
-    aluno(id: ID @eq): Aluno @find
+    aluno(id: ID! @eq): Aluno @find
 
     materias: [Materia!]! @paginate(defaultCount: 10)
-    materia(id: ID @eq): Materia @find
+    materia(id: ID! @eq): Materia @find
+
+    alunomaterias: [AlunoMateria!]! @paginate(defaultCount: 10)
+
+    avaliacoes: [Avaliacao!]! @paginate(defaultCount: 10)
+    avaliacao(id: ID! @eq): Avaliacao @find
 }
 
 type User {
@@ -30,6 +35,7 @@ type Aluno {
     nu_idade: Int!
     tx_email: String!
     nu_matricula: Int!
+    alunoMateria: [AlunoMateria!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
@@ -39,16 +45,26 @@ type Materia {
     id: ID!
     tx_nome: String!
     tx_descricao: String!
+    alunoMateria: [AlunoMateria!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
 }
 
-## FINALIZAR ESSA PARTE AQUI.
-#type AlunosMaterias {
-#    alunos_id: String!
-#    materias_id: String!
-#}
+type AlunoMateria {
+    id: ID!
+    alunos_id: ID!
+    materias_id: ID!
+    aluno: [Aluno!]! @belongsTo
+    materia: [Materia!]! @belongsTo
+    avaliacao: [Avaliacao!]! @hasMany
+}
+
+type Avaliacao {
+    id: ID!
+    nu_nota: Float!
+    alunoMateria: AlunoMateria! @belongsTo
+}
 
 
 type Mutation {
@@ -60,11 +76,11 @@ type Mutation {
     ): Aluno @create (model: "App\\Models\\Aluno")
 
     updateAluno(
-        id:           ID!
+        id:           ID!     @rules(apply: ["required"])
         tx_nome:      String! @rules(apply: ["required"])
         nu_idade:     Int!    @rules(apply: ["required"])
         tx_email:     String! @rules(apply: ["required"])
-#        nu_matricula: Int!    @rules(apply: ["required"]) A idea é que não atualize matricula.
+        #        nu_matricula: Int!    @rules(apply: ["required"]) A idea é que não atualize matricula.
     ): Aluno @update
 
     deleteAluno(
@@ -77,7 +93,7 @@ type Mutation {
     ): Materia @create (model: "App\\Models\\Materia")
 
     updateMateria(
-        id:           ID!
+        id:           ID!     @rules(apply: ["required"])
         tx_nome:      String! @rules(apply: ["required"])
         tx_descricao: String! @rules(apply: ["required"])
     ): Materia @update
