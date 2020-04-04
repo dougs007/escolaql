@@ -126,55 +126,44 @@ mutation {
 >Query
 ```
 {
-  # buscar as matérias com paginação
-  materias(page: 1) {
-    data{
-      tx_nome
-    }
-    paginatorInfo{
-      count
-      lastPage
+  # buscar alunos_materia com paginação
+  alunomaterias(first: 2) {
+    paginatorInfo {
       total
+      lastPage
+      count
+    }
+    data {
+      id
+      alunos_id
+      materias_id
+      aluno {
+        tx_nome
+        nu_matricula
+      }
+      materia {
+        tx_nome
+      }
     }
   }
 
-  # buscar uma matéria específica
-  materia(id: 4) {
-    tx_nome
+  # buscar um registro específico
+  alunomateria(id: 2) {
+      id
+      alunos_id
+      materias_id
+      aluno {
+        tx_nome
+        nu_matricula
+      }
+      materia {
+        tx_nome
+        tx_descricao
+    	}
   }
 }
 ```
 >Mutation
 ```
-mutation {
-
-  # Criar Materia
-  createMateria(
-    tx_nome: "Curso de Programação"
-    tx_descricao: "Um curso legal de programacao"
-  ){
-    id
-    tx_nome
-    created_at
-  }
-
-  # Atualizar dados de Matéria
-  updateMateria(
-    id: 6
-    tx_nome: "Curso de Programação alterado"
-    tx_descricao: " um curso de Programação alterada"
-  ){
-    id
-    tx_nome
-    tx_descricao
-  }
-}
-
-  # Excluir registro de Materia
-  deleteMateria(
-    id: 6
-  ){
-    deleted_at
-  }
 
 ```

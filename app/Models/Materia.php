@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\{Model, SoftDeletes};
+use Illuminate\Database\Eloquent\{Model, Relations\HasMany, SoftDeletes};
 
 class Materia extends Model
 {
@@ -16,7 +16,7 @@ class Materia extends Model
         'tx_nome', 'tx_descricao'
     ];
 
-    public function alunoMateria()
+    public function alunoMateria(): HasMany
     {
         return $this->hasMany(\App\Models\AlunoMateria::class, 'alunos_materias_id');
     }

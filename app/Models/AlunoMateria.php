@@ -18,7 +18,7 @@ class AlunoMateria extends Model
 
     public function aluno(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\Aluno::class);
+        return $this->belongsTo(\App\Models\Aluno::class, 'alunos_id');
     }
 
     public function materia(): BelongsTo

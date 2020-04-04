@@ -15,6 +15,7 @@ type Query {
     materia(id: ID! @eq): Materia @find
 
     alunomaterias: [AlunoMateria!]! @paginate(defaultCount: 10)
+    alunomateria(id: ID! @eq): AlunoMateria @find
 
     avaliacoes: [Avaliacao!]! @paginate(defaultCount: 10)
     avaliacao(id: ID! @eq): Avaliacao @find
@@ -35,7 +36,8 @@ type Aluno {
     nu_idade: Int!
     tx_email: String!
     nu_matricula: Int!
-    alunoMateria: [AlunoMateria!]! @hasMany
+    materia: [Materia!]! @belongsToMany
+    #    alunoMateria: [AlunoMateria!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
@@ -45,7 +47,8 @@ type Materia {
     id: ID!
     tx_nome: String!
     tx_descricao: String!
-    alunoMateria: [AlunoMateria!]! @hasMany
+    aluno: [Aluno!]! @belongsToMany
+    #    alunoMateria: [AlunoMateria!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
@@ -55,9 +58,9 @@ type AlunoMateria {
     id: ID!
     alunos_id: ID!
     materias_id: ID!
-    aluno: [Aluno!]! @belongsTo
-    materia: [Materia!]! @belongsTo
-    avaliacao: [Avaliacao!]! @hasMany
+    aluno: Aluno! @belongsTo
+    materia: Materia! @belongsTo
+#    avaliacao: [Avaliacao!]! @hasMany
 }
 
 type Avaliacao {
