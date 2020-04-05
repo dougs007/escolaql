@@ -57,6 +57,7 @@ type AlunoMateria {
     id: ID!
     aluno: Aluno! @belongsTo
     materia: Materia! @belongsTo
+    avaliacao: [Avaliacao!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
@@ -122,6 +123,20 @@ type Mutation {
     deleteAlunoMateria(
         id: ID! @rules(apply: ["required"])
     ): AlunoMateria @delete (model: "App\\Models\\AlunoMateria")
+
+    createAvaliacao(
+        nu_nota:            Float! @rules(apply: ["required"])
+        alunos_materias_id: ID!    @rules(apply: ["required"])
+    ): Avaliacao @create (model: "App\\Models\\Avaliacao")
+
+    updateAvaliacao(
+        id:                 ID! @rules(apply: ["required"])
+        nu_nota:            Float! @rules(apply: ["required"])
+    ): Avaliacao @update
+
+    deleteAvaliacao(
+        id: ID! @rules(apply: ["required"])
+    ): Avaliacao @delete (model: "App\\Models\\Avaliacao")
 
 
 }

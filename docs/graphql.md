@@ -154,17 +154,17 @@ mutation {
 
   # buscar um registro específico
   alunomateria(id: 2) {
-      id
-      alunos_id
-      materias_id
-      aluno {
-        tx_nome
-        nu_matricula
-      }
-      materia {
-        tx_nome
-        tx_descricao
-    	}
+    id
+    alunos_id
+    materias_id
+    aluno {
+      tx_nome
+      nu_matricula
+    }
+    materia {
+      tx_nome
+      tx_descricao
+    }
   }
 }
 ```
@@ -207,6 +207,94 @@ mutation {
     id: 13
   ) {
     id
+    deleted_at
+  }
+
+}
+```
+### Avaliações
+>Query
+```
+{
+  # buscar detalhes das avaliações com paginação
+  avaliacoes(first: 10) {
+    paginatorInfo {
+      count
+      lastPage
+    }
+    data {
+      id
+      nu_nota
+      alunoMateria {
+        aluno {
+          tx_nome
+        }
+        materia {
+          tx_nome
+        }
+      }
+    }
+  }
+
+  # buscar um registro específico
+  avaliacao(id: 8) {
+    id
+    nu_nota
+    alunoMateria {
+      aluno {
+        tx_nome
+      }
+      materia {
+        tx_nome
+      }
+    }
+  }
+}
+```
+>Mutation
+```
+mutation {
+
+  # Criar Avaliação
+  createAvaliacao(
+    nu_nota: 10
+    alunos_materias_id: 13
+  ) {
+    nu_nota
+    # Fazer melhoria para retornar os params abaixo.
+    # alunoMateria {
+    #   aluno {
+    #     tx_nome
+    #   }
+    #   materia {
+    #     tx_nome
+    #   }
+    # }
+    updated_at
+  }
+
+  # Atualizar dados da Avaliação
+  updateAvaliacao(
+    id: 11
+    nu_nota: 9
+  ) {
+    nu_nota
+    # Fazer melhoria para retornar os params abaixo.
+    # alunoMateria {
+    #   aluno {
+    #     tx_nome
+    #   }
+    #   materia {
+    #     tx_nome
+    #   }
+    # }
+    updated_at
+  }
+
+  # Excluir registro de Avaliacao
+  deleteAvaliacao(
+    id: 1
+  ) {
     deleted_at
   }
 

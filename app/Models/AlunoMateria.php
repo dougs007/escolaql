@@ -28,6 +28,6 @@ class AlunoMateria extends Model
 
     public function avalicao(): HasMany
     {
-        return $this->hasMany(\App\Models\Avaliacao::class);
+        return $this->hasMany(\App\Models\Avaliacao::class, 'alunos_materias_id');
     }
 }
