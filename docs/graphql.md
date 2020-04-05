@@ -20,6 +20,7 @@
   aluno(id: 4) {
     tx_nome
   }
+
 }
 ```
 >Mutation
@@ -52,7 +53,6 @@ mutation {
     created_at
     nu_matricula
   }
-}
 
   # Excluir registro de Aluno
   deleteAluno(
@@ -62,6 +62,8 @@ mutation {
     tx_nome
     deleted_at
   }
+
+}
 
 ```
 
@@ -85,6 +87,7 @@ mutation {
   materia(id: 4) {
     tx_nome
   }
+
 }
 ```
 >Mutation
@@ -111,7 +114,6 @@ mutation {
     tx_nome
     tx_descricao
   }
-}
 
   # Excluir registro de Materia
   deleteMateria(
@@ -119,6 +121,9 @@ mutation {
   ){
     deleted_at
   }
+
+}
+
 
 ```
 
@@ -165,5 +170,45 @@ mutation {
 ```
 >Mutation
 ```
+mutation {
 
+  # Criar Aluno Materia
+  createAlunoMateria (
+    alunos_id: 4
+    materias_id: 3
+  ) {
+    aluno {
+      tx_nome
+      nu_matricula
+    }
+    materia {
+      tx_nome
+    }
+  }
+
+  # Atualizar dados de Matéria
+  updateAlunoMateria(
+    id: 13
+    alunos_id: 4
+    materias_id: 4
+  ) {
+    id
+    aluno {
+      tx_nome
+    }
+    materia {
+      tx_nome
+    }
+    updated_at
+  }
+
+  # Excluir registro de Alunos Materia
+  deleteAlunoMateria(
+    id: 13
+  ) {
+    id
+    deleted_at
+  }
+
+}
 ```

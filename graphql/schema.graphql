@@ -48,7 +48,6 @@ type Materia {
     tx_nome: String!
     tx_descricao: String!
     aluno: [Aluno!]! @belongsToMany
-    #    alunoMateria: [AlunoMateria!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
@@ -56,17 +55,20 @@ type Materia {
 
 type AlunoMateria {
     id: ID!
-    alunos_id: ID!
-    materias_id: ID!
     aluno: Aluno! @belongsTo
     materia: Materia! @belongsTo
-#    avaliacao: [Avaliacao!]! @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }
 
 type Avaliacao {
     id: ID!
     nu_nota: Float!
     alunoMateria: AlunoMateria! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }
 
 
@@ -104,4 +106,22 @@ type Mutation {
     deleteMateria(
         id: ID! @rules(apply: ["required"])
     ): Materia @delete (model: "App\\Models\\Materia")
+
+
+    createAlunoMateria(
+        alunos_id:   ID! @rules(apply: ["required"])
+        materias_id: ID! @rules(apply: ["required"])
+    ): AlunoMateria @create (model: "App\\Models\\AlunoMateria")
+
+    updateAlunoMateria(
+        id:           ID! @rules(apply: ["required"])
+        alunos_id:    ID! @rules(apply: ["required"])
+        materias_id: ID! @rules(apply: ["required"])
+    ): AlunoMateria @update
+
+    deleteAlunoMateria(
+        id: ID! @rules(apply: ["required"])
+    ): AlunoMateria @delete (model: "App\\Models\\AlunoMateria")
+
+
 }
